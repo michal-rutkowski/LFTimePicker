@@ -84,6 +84,8 @@ open class LFTimePickerController: UIViewController {
     /// Hour Format: 12h (default) or 24h format
     open var timeType = TimeType.hour12
     
+    open var minuteInterval : Int = 5
+    
     open var backgroundColor = UIColor(red: 255 / 255, green: 128 / 255, blue: 0, alpha: 1)
     
     open var titleText: String = "Change Time"
@@ -302,13 +304,11 @@ open class LFTimePickerController: UIViewController {
         }
         
         for hr in 0...23 {
-            for min in 0 ..< 12 {
-                
+            for min in 0 ..< Int(floor(60.0/Double(minuteInterval))) {
                 if min == 0 {
                     arr.append("\(hr):00")
                 } else {
-                    var minute = "\(min * 5)"
-                    minute = minute.characters.count == 1 ? "0"+minute : minute
+                    var minute = "\(min * minuteInterval)"
                     minute = minute.count == 1 ? "0"+minute : minute
                     arr.append("\(hr):\(minute)")
                 }
