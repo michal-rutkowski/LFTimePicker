@@ -161,8 +161,8 @@ open class LFTimePickerController: UIViewController {
         view.addSubview(leftTimeTable)
         view.addSubview(rightTimeTable)
         
-        self.view.sendSubview(toBack: leftTimeTable)
-        self.view.sendSubview(toBack: rightTimeTable)
+        self.view.sendSubviewToBack(leftTimeTable)
+        self.view.sendSubviewToBack(rightTimeTable)
     }
     
     fileprivate func setupDetailView() {
@@ -270,14 +270,14 @@ open class LFTimePickerController: UIViewController {
                     } else if hr == 0 && ampm == 1 {
                         
                         var minute = "\(min * 5)"
-                        minute = minute.characters.count == 1 ? "0"+minute : minute
+                        minute = minute.count == 1 ? "0"+minute : minute
                         arr.append("12:\(minute)")
                         
                     } else if min == 0 {
                         arr.append("\(hr):00")
                     } else {
                         var minute = "\(min * 5)"
-                        minute = minute.characters.count == 1 ? "0"+minute : minute
+                        minute = minute.count == 1 ? "0"+minute : minute
                         arr.append("\(hr):\(minute)")
                     }
                 }
@@ -309,6 +309,7 @@ open class LFTimePickerController: UIViewController {
                 } else {
                     var minute = "\(min * 5)"
                     minute = minute.characters.count == 1 ? "0"+minute : minute
+                    minute = minute.count == 1 ? "0"+minute : minute
                     arr.append("\(hr):\(minute)")
                 }
             }
@@ -397,7 +398,7 @@ extension LFTimePickerController: UITableViewDataSource {
     // Setup of Time cells
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell") as UITableViewCell!
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell") as UITableViewCell?
         if !(cell != nil) {
             cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         }
